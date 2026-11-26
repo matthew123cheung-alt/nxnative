@@ -314,12 +314,12 @@ class RtCompile(unittest.TestCase):
             store = SimpleNamespace(names=lambda prefix: [], delete_prefix=Mock())
             writer = Mock()
             env = lift('owned_output', 'publish_library', want={'a' * 16}, dmsh_rt_compile=rt,
-           romfs=romfs,
+                       romfs=romfs,
                        label_dir=lambda label: str(out), STAGE='stage/test',
                        shader_lib=SimpleNamespace(image_of=lambda d: d + '.img', write=writer),
                        OLD_IMAGE={'mac': old}, OUT_KEY=re.compile(r'([0-9a-f]{16}|rt_library)_b'),
                        dmsh_chain=SimpleNamespace(STAMP='inputs.tsv'), STAMP_BEFORE='same', INPUTS='same',
-                       STORE=store, os=os, shutil=shutil)
+                       STORE=store, os=os, shutil=shutil, romfs=romfs)
             env['publish_library']('mac')
             published = writer.call_args.args[0]
             self.assertEqual(set(published), {'b' * 16 + '_b.metallib', 'inputs.tsv', 'rt_library_b.json'})
