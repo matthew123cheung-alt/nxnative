@@ -25,7 +25,13 @@ CAN_SIGN = sys.platform == 'darwin' and shutil.which('codesign') and shutil.whic
 
 def run_step(script, root, **extra):
     env = {k: v for k, v in os.environ.items() if not k.startswith('DM_') and k not in ('IOS_PULL', 'AOC', 'PSO')}
-    env.update(GAME=GAME, DM=str(root / 'dm'), PROFILE_TOOL=str(REPO / 'dm/games/game.py'), **extra)
+    env.update(
+    GAME=GAME,
+    DM=str(root / 'dm'),
+    PROFILE_TOOL=str(REPO / 'dm/games/game.py'),
+    GFXAPI='nvn',
+    **extra,
+)
     return subprocess.run(['/bin/bash', '-c', PREAMBLE + script], cwd=root, env=env, capture_output=True, text=True)
 
 
