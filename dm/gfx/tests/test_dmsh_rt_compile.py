@@ -21,6 +21,7 @@ sys.path.insert(0, str(TOOLS))
 sys.path.insert(0, str(HERE))
 import dmsh_abi as abi
 import dmsh_ampere
+import romfs
 import dmsh_rt_compile as rt
 from dmsh_rt import InvalidModule
 from dmsh_rt_build import make_job
@@ -319,7 +320,7 @@ class RtCompile(unittest.TestCase):
                        shader_lib=SimpleNamespace(image_of=lambda d: d + '.img', write=writer),
                        OLD_IMAGE={'mac': old}, OUT_KEY=re.compile(r'([0-9a-f]{16}|rt_library)_b'),
                        dmsh_chain=SimpleNamespace(STAMP='inputs.tsv'), STAMP_BEFORE='same', INPUTS='same',
-                       STORE=store, os=os, shutil=shutil, romfs=romfs)
+                       STORE=store, os=os, shutil=shutil)
             env['publish_library']('mac')
             published = writer.call_args.args[0]
             self.assertEqual(set(published), {'b' * 16 + '_b.metallib', 'inputs.tsv', 'rt_library_b.json'})
