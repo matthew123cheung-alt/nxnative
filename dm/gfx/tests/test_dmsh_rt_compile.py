@@ -13,13 +13,14 @@ import sys
 import tempfile
 from types import SimpleNamespace
 import unittest
-import romfs_image
 from unittest.mock import Mock, patch
 
 HERE = Path(__file__).resolve().parent
 TOOLS = HERE.parent / 'tools'
+
 sys.path.insert(0, str(TOOLS))
 sys.path.insert(0, str(HERE))
+import romfs_image
 import dmsh_abi as abi
 import dmsh_ampere
 import romfs
