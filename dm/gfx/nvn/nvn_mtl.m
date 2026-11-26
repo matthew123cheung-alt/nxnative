@@ -1164,7 +1164,7 @@ static void rop_f16_probe(void) {
         MTLTextureDescriptor *td = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA16Float width:1 height:1 mipmapped:NO];
         td.usage = MTLTextureUsageRenderTarget; td.storageMode = MTLStorageModeShared;
         id<MTLTexture> rt = [g_dev newTextureWithDescriptor:td];
-        id<MTLCommandBuffer> cb = [g_q commandBuffer];
+        id<MTLCommandBuffer> cb = cl_cb();
         if (!rt || !cb) return;
         MTLRenderPassDescriptor *rp = [MTLRenderPassDescriptor new];
         rp.colorAttachments[0].texture = rt; rp.colorAttachments[0].loadAction = MTLLoadActionClear; rp.colorAttachments[0].storeAction = MTLStoreActionStore;
