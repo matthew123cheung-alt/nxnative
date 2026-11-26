@@ -314,6 +314,7 @@ class RtCompile(unittest.TestCase):
             store = SimpleNamespace(names=lambda prefix: [], delete_prefix=Mock())
             writer = Mock()
             env = lift('owned_output', 'publish_library', want={'a' * 16}, dmsh_rt_compile=rt,
+           romfs=romfs,
                        label_dir=lambda label: str(out), STAGE='stage/test',
                        shader_lib=SimpleNamespace(image_of=lambda d: d + '.img', write=writer),
                        OLD_IMAGE={'mac': old}, OUT_KEY=re.compile(r'([0-9a-f]{16}|rt_library)_b'),
