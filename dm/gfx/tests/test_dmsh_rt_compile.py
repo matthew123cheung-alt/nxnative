@@ -18,7 +18,7 @@ from unittest.mock import Mock, patch
 HERE = Path(__file__).resolve().parent
 
 # Repository root: nxnative/
-REPO = HERE.parents[3]
+REPO = HERE.parents[2]
 
 # Actual project directories
 TOOLS = REPO / 'dm' / 'tools'
