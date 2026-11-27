@@ -19,14 +19,13 @@ HERE = Path(__file__).resolve().parent
 
 # Repository root: nxnative/
 REPO = HERE.parents[2]
-
-# Actual project directories
 TOOLS = REPO / 'dm' / 'tools'
 GFX = REPO / 'dm' / 'gfx'
+GFX_TOOLS = GFX / 'tools'
 
-# Import project modules
 sys.path.insert(0, str(TOOLS))
 sys.path.insert(0, str(GFX))
+sys.path.insert(0, str(GFX_TOOLS))
 sys.path.insert(0, str(HERE))
 
 import romfs_image
