@@ -59,6 +59,7 @@ class ProfilePackTests(unittest.TestCase):
                 packing = script[script.index('\nP=Payload/DmIOS.app\n'):]
                 result = subprocess.run(['/bin/bash', '-c', 'set -u\nGFXAPI=${GFXAPI:-nvn}\nt() { :; }; die() { echo "$*" >&2; exit 1; }\n'
                                          'gp() { python3 "$PROFILE_TOOL" "$GAME" "$1"; }\n' + packing],
+                                         'GD=$(python3 "$PROFILE_TOOL" dir "$GAME")\n' + packing],
                                         cwd=root, env=env, capture_output=True, text=True)
                 self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
                 with zipfile.ZipFile(out) as archive:
