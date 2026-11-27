@@ -22,6 +22,7 @@ REPO = HERE.parents[2]
 TOOLS = REPO / 'dm' / 'tools'
 GFX = REPO / 'dm' / 'gfx'
 GFX_TOOLS = GFX / 'tools'
+BUILD_TOOLS = GFX_TOOLS
 
 sys.path.insert(0, str(TOOLS))
 sys.path.insert(0, str(GFX))
@@ -72,7 +73,7 @@ def runtime(plan) -> dict:
 
 def lift(*names, **environment):
     """Actual build functions without importing its command-line side effects."""
-    tree = ast.parse((TOOLS / 'dmsh_build.py').read_text())
+    tree = ast.parse((BUILD_TOOLS / 'dmsh_build.py').read_text())
     tree.body = [node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name in names]
     exec(compile(tree, 'dmsh_build.py', 'exec'), environment)
     return environment
