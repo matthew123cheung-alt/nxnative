@@ -28,6 +28,7 @@ def run_step(script, root, **extra):
     env.update(
     GAME=GAME,
     DM=str(root / 'dm'),
+    GD=str(REPO / 'dm/games' / GAME),
     PROFILE_TOOL=str(REPO / 'dm/games/game.py'),
     GFXAPI='nvn',
     **extra,
