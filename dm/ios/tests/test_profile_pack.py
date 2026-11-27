@@ -57,10 +57,24 @@ class ProfilePackTests(unittest.TestCase):
                 # Exercise the actual archive step; only the preceding Xcode build is bypassed.
                 script = (REPO / 'dm/ios/tools/build_ipa.sh').read_text()
                 packing = script[script.index('\nP=Payload/DmIOS.app\n'):]
-                result = subprocess.run(['/bin/bash', '-c', 'set -u\nGFXAPI=${GFXAPI:-nvn}\nt() { :; }; die() { echo "$*" >&2; exit 1; }\n'
-                                         'gp() { python3 "$PROFILE_TOOL" "$GAME" "$1"; }\n' + packing],
-                                         'GD=$(python3 "$PROFILE_TOOL" dir "$GAME")\n' + packing],
-                                        cwd=root, env=env, capture_output=True, text=True)
+                result = subprocess.run(
+                    [
+                         '/bin/bash',              
+                         '-c',
+                         'set -u\n'
+                         'GFXAPI=${GFXAPI:-nvn}\n'
+                         't() { :; }\n'
+                         'die() { echo "$*" >&2; exit 1; }\n'
+                         'gp() { python3 "$PROFILE_TOOL" "$GAME" "$1"; }\n'
+                         'GD=$(python3 "$PROFILE_TOOL" dir "$GAME")\n'
+                         + packing
+                    ],
+                     cwd=root,
+                     env=env,
+                     capture_output=True,
+                     text=True
+                      )
+
                 self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
                 with zipfile.ZipFile(out) as archive:
                     names = set(archive.namelist())
