@@ -20,6 +20,11 @@ TOOLS = HERE.parents[2] / 'tools'
 
 sys.path.insert(0, str(TOOLS))
 sys.path.insert(0, str(HERE))
+import sys
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(REPO / 'dm/tools'))
 import romfs_image
 import dmsh_abi as abi
 import dmsh_ampere
