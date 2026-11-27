@@ -25,6 +25,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO / 'dm/tools'))
+sys.path.insert(0, str(REPO / 'dm/gfx'))
 import romfs_image
 import dmsh_abi as abi
 import dmsh_ampere
