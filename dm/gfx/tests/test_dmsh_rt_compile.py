@@ -16,17 +16,19 @@ import unittest
 from unittest.mock import Mock, patch
 
 HERE = Path(__file__).resolve().parent
-REPO = HERE.parents[2]
-TOOLS = HERE.parents[2] / 'tools'
 
+# Repository root: nxnative/
+REPO = HERE.parents[3]
+
+# Actual project directories
+TOOLS = REPO / 'dm' / 'tools'
+GFX = REPO / 'dm' / 'gfx'
+
+# Import project modules
 sys.path.insert(0, str(TOOLS))
+sys.path.insert(0, str(GFX))
 sys.path.insert(0, str(HERE))
-import sys
-from pathlib import Path
 
-REPO = Path(__file__).resolve().parents[3]
-sys.path.insert(0, str(REPO / 'dm/tools'))
-sys.path.insert(0, str(REPO / 'dm/gfx'))
 import romfs_image
 import dmsh_abi as abi
 import dmsh_ampere
