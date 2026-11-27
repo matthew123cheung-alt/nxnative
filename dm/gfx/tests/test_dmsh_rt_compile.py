@@ -16,6 +16,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 HERE = Path(__file__).resolve().parent
+REPO = HERE.parents[2]
 TOOLS = HERE.parents[2] / 'tools'
 
 sys.path.insert(0, str(TOOLS))
