@@ -279,7 +279,7 @@ class RtCompile(unittest.TestCase):
         env['commit'].assert_called_once_with('rt_library')
 
     def test_rt_only_selection_remains_partial_and_universal_input_is_not_filtered(self):
-        tree = ast.parse((TOOLS / 'dmsh_build.py').read_text())
+        tree = ast.parse((BUILD_TOOLS / 'dmsh_build.py').read_text())
         start = next(i for i, n in enumerate(tree.body) if isinstance(n, ast.Assign) and
                      any(isinstance(t, ast.Name) and t.id == 'keys' for t in n.targets) and
                      isinstance(n.value, ast.Call) and getattr(n.value.func, 'id', '') == 'build_keys')
