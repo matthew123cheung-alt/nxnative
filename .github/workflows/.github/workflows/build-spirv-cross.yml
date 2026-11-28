@@ -1,0 +1,47 @@
+
+name: Build SPIRV-Cross
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check Xcode
+        run: |
+          xcodebuild -version
+          cmake --version
+          git --version
+
+      - name: Accept Xcode license
+        run: sudo xcodebuild -license accept
+
+      - name: Build SPIRV-Cross
+        run: |
+          chmod +x dm/gfx/tools/spirv_cross_bin/build.sh
+          dm/gfx/tools/spirv_cross_bin/build.sh
+
+      - name: Verify binary
+        run: |
+          file dm/gfx/tools/spirv_cross_bin/spirv-cross
+          shasum -a 256 dm/gfx/tools/spirv_cross_bin/spirv-cross
+          dm/gfx/tools/spirv_cross_bin/spirv-cross --revision
+
+      - name: Upload SPIRV-Cross
+        uses: actions/upload-artifact@v4
+        with:
+          name: spirv-cross-macos-universal
+          path: |
+            dm/gfx/tools/spirv_cross_bin/spirv-cross
+            dm/gfx/tools/spirv_cross_bin/LICENSE
+            dm/gfx/tools/spirv_cross_bin/LICENSES/
+          if-no-files-found: error
+          retention-days: 7
